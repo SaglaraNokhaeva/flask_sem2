@@ -14,7 +14,7 @@ from flask import Flask, request, render_template, redirect, url_for, make_respo
 
 app = Flask(__name__)
 
-app.secret_key = ''
+app.secret_key = b'9944377ddf540a4e22fa894ada3b369c33460a117bc7f920ba8db593f26826fa'
 #
 # @app.route('/')
 # def index():
