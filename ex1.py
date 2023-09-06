@@ -10,7 +10,7 @@
 # пользователя и произведено перенаправление на страницу
 # ввода имени и электронной почты.
 
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, make_response
 
 app = Flask(__name__)
 
@@ -31,10 +31,17 @@ def submit_get():
 @app.post('/submit')
 def submit_post():
     name = request.form.get('name')
-    # email = request.form.get('email')
+    email = request.form.get('email')
     # return f'Hello, {name} ({email})!'
+    response = make_response("Cookie установлен")
+    response.set_cookie(name, email)
+    return response
     return redirect(url_for('hello', name = name))
+    # return response
     return render_template('form.html')
+
+
+
 
 if __name__ == '__main__':
     app.run()
