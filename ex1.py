@@ -10,13 +10,18 @@
 # пользователя и произведено перенаправление на страницу
 # ввода имени и электронной почты.
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Hi!'
+    return render_template('index.html')
+
+@app.route('/hello/<name>')
+def hello(name):
+    return f'Привет {name}!'
+
 
 @app.get('/submit')
 def submit_get():
@@ -26,8 +31,10 @@ def submit_get():
 @app.post('/submit')
 def submit_post():
     name = request.form.get('name')
-    email = request.form.get('email')
-    return f'Hello, {name} ({email})!'
+    # email = request.form.get('email')
+    # return f'Hello, {name} ({email})!'
+    return redirect(url_for('hello', name = name))
+    return render_template('form.html')
 
 if __name__ == '__main__':
     app.run()
